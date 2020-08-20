@@ -29,11 +29,12 @@ function hash(password) {
 // hashed password.
 function compare(password, hashedPassword) {
   // Cannot bcrypt compare when one is undefined
-  if (!password || !hashedPassword) {
+  if (password == null || hashedPassword == null) {
     return Promise.resolve(false);
   }
+
   //return bcrypt.compare(password, hashedPassword);
-  return Promise.resolve(hash(password) == hashedPassword);
+  return Promise.resolve(hash(password) === hashedPassword);
 }
 
 module.exports = {
@@ -41,9 +42,9 @@ module.exports = {
   compare: compare,
 };
 
-// Promise.resolve(hash('password')).then(function (v) {
-//   console.log('Hashed: ' + v);
-// });
+Promise.resolve(hash('password')).then(function (v) {
+  console.log('Hashed: ' + v);
+});
 
 Promise.resolve(
   compare(
