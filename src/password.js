@@ -20,7 +20,9 @@ function hash(password) {
     process.env.SALT ||
     'zPk06xSLopMLEYcl9YMkThajWcjtXxHM5KF8U9UK/Bs9VV1j+uQIRq5X+356IkRABk7IWJBQI87Y';
   console.debug(salt);
-  return pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex');
+  return Promise.resolve(
+    pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
+  );
 }
 
 // Returns a promise for whether this password compares to equal this
