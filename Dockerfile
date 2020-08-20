@@ -29,8 +29,10 @@ COPY views views
 COPY --from=build /tmp/lib lib
 RUN mkdir -p logs && chown -R node: logs
 
+RUN npm install pm2 -g
+
 ENV PORT=1337
 USER node
 EXPOSE $PORT
 
-ENTRYPOINT ["node", "./bin/parse-server"]
+ENTRYPOINT ["pm2-runtime", "-i","max","./bin/parse-server"]
