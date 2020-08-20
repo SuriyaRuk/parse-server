@@ -19,7 +19,7 @@ function hash(password) {
   const salt =
     process.env.SALT ||
     'zPk06xSLopMLEYcl9YMkThajWcjtXxHM5KF8U9UK/Bs9VV1j+uQIRq5X+356IkRABk7IWJBQI87Y';
-  console.debug(salt);
+  //console.debug(salt);
   return Promise.resolve(
     pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
   );
@@ -29,9 +29,9 @@ function hash(password) {
 // hashed password.
 function compare(password, hashedPassword) {
   // Cannot bcrypt compare when one is undefined
-  // if (password == null || hashedPassword == null) {
-  //   return Promise.resolve(false);
-  // }
+  if (password == null || hashedPassword == null) {
+    return Promise.resolve(false);
+  }
 
   //return bcrypt.compare(password, hashedPassword);
   return Promise.resolve(
