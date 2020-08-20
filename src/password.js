@@ -31,7 +31,7 @@ function compare(password, hashedPassword) {
     return Promise.resolve(false);
   }
   //return bcrypt.compare(password, hashedPassword);
-  return hash(password) === hashedPassword;
+  return Promise.resolve(hash(password) === hashedPassword);
 }
 
 module.exports = {
