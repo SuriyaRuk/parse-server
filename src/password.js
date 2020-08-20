@@ -33,7 +33,7 @@ function compare(password, hashedPassword) {
     return Promise.resolve(false);
   }
   //return bcrypt.compare(password, hashedPassword);
-  return Promise.resolve(hash(password) === hashedPassword);
+  return hash(password) === hashedPassword;
 }
 
 module.exports = {
@@ -45,11 +45,11 @@ module.exports = {
 //   console.log('Hashed: ' + v);
 // });
 
-// Promise.resolve(
-//   compare(
-//     'password',
-//     'f8c687132809100526250d0884dc440555dbf8425a9ff947029538c36c602731d9a716c88f96c97e48c3075f7410e5705eeacc9b082758cb2d524d83e674db0e'
-//   )
-// ).then(function (v) {
-//   console.log('Valid = ' + v);
-// });
+Promise.resolve(
+  compare(
+    'password',
+    'f8c687132809100526250d0884dc440555dbf8425a9ff947029538c36c602731d9a716c88f96c97e48c3075f7410e5705eeacc9b082758cb2d524d83e674db0e'
+  )
+).then(function (v) {
+  console.log('Valid = ' + v);
+});
