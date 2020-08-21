@@ -14,12 +14,12 @@ try {
 }
 */
 // Returns a promise for a hashed password string.
-function hash(password) {
+function hash(password, salt) {
   //return bcrypt.hash(password, 10);
-  const salt =
-    process.env.SALT ||
-    'zPk06xSLopMLEYcl9YMkThajWcjtXxHM5KF8U9UK/Bs9VV1j+uQIRq5X+356IkRABk7IWJBQI87Y';
-  //console.debug(salt);
+  // const salt =
+  //   process.env.SALT ||
+  //   'zPk06xSLopMLEYcl9YMkThajWcjtXxHM5KF8U9UK/Bs9VV1j+uQIRq5X+356IkRABk7IWJBQI87Y';
+
   return Promise.resolve(
     pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
   );
@@ -27,7 +27,7 @@ function hash(password) {
 
 // Returns a promise for whether this password compares to equal this
 // hashed password.
-function compare(password, hashedPassword) {
+function compare(password, hashedPassword, salt) {
   // Cannot bcrypt compare when one is undefined
   if (password == null || hashedPassword == null) {
     return Promise.resolve(false);
@@ -35,7 +35,7 @@ function compare(password, hashedPassword) {
 
   //return bcrypt.compare(password, hashedPassword);
   return Promise.resolve(
-    hash(password).then(function (hashed) {
+    hash(password, salt).then(function (hashed) {
       return hashed === hashedPassword;
     })
   );
