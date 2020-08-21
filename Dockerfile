@@ -1,8 +1,7 @@
 # Build stage
-FROM node:lts-alpine as build
+FROM node:10-alpine as build
 
-RUN apk update; \
-  apk add git;
+RUN apk update && apk add git && apk add tzdata && TZ=Asia/Bangkok && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && apk del tzdata && apk add yarn python g++ make
 WORKDIR /tmp
 COPY package*.json ./
 RUN npm ci
