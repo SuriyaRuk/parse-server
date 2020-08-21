@@ -683,7 +683,7 @@ RestWrite.prototype.transformUser = function () {
       }
 
       return this._validatePasswordPolicy().then(() => {
-        const salt = crypto.randomBytes(256).toString('hex');
+        const salt = crypto.randomBytes(8).toString('hex');
         this.data['salt'] = salt;
         return passwordCrypto
           .hash(this.data.password, this.data.salt)

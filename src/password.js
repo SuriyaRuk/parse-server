@@ -21,7 +21,8 @@ function hash(password, salt) {
   //   'zPk06xSLopMLEYcl9YMkThajWcjtXxHM5KF8U9UK/Bs9VV1j+uQIRq5X+356IkRABk7IWJBQI87Y';
 
   return Promise.resolve(
-    pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
+    //pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
+    pbkdf2.pbkdf2Sync(password, salt, 16, 8, 'sha512').toString('hex')
   );
 }
 
