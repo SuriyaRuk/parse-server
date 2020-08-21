@@ -1,5 +1,6 @@
 # Build stage
 FROM node:10-alpine as build
+#FROM keymetrics/pm2:latest-alpine
 
 RUN apk update && apk add git && apk add tzdata && TZ=Asia/Bangkok && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && apk del tzdata && apk add yarn python g++ make
 WORKDIR /tmp
@@ -10,6 +11,8 @@ RUN npm run build
 
 # Release stage
 FROM node:10-alpine as release
+#FROM node:alpine as release
+#FROM keymetrics/pm2:8-alpine
 
 RUN apk update && apk add git && apk add tzdata && TZ=Asia/Bangkok && cp /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && apk del tzdata && apk add yarn python g++ make
 
@@ -33,5 +36,7 @@ ENV PORT=1337
 USER node
 EXPOSE $PORT
 
+#ENTRYPOINT ["pm2-runtime","start","./lib/cli/parse-server.js","-i","max"]
+CMD pm2-runtime start ./lib/index.js -i max
+#CMD pm2 start ./bin/parse-server -i max
 #ENTRYPOINT ["pm2-runtime","./bin/parse-server","-i","max"]
-CMD pm2 start ./bin/parse-server -i max
