@@ -22,7 +22,7 @@ function hash(password, salt) {
 
   return Promise.resolve(
     //pbkdf2.pbkdf2Sync(password, salt, 1024, 64, 'sha512').toString('hex')
-    pbkdf2.pbkdf2Sync(password, salt, 16, 8, 'sha512').toString('hex')
+    pbkdf2.pbkdf2Sync(password, salt, 8, 8, 'sha512').toString('hex')
   );
 }
 

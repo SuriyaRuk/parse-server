@@ -14,7 +14,7 @@ var ClientSDK = require('./ClientSDK');
 import RestQuery from './RestQuery';
 import _ from 'lodash';
 import logger from './logger';
-//const crypto = require('crypto');
+const crypto = require('crypto');
 
 // query and data are both provided in REST API format. So data
 // types are encoded by plain old objects.
@@ -683,8 +683,8 @@ RestWrite.prototype.transformUser = function () {
       }
 
       return this._validatePasswordPolicy().then(() => {
-        //const salt = crypto.randomBytes(8).toString('hex');
-        const salt = 'asdffht4';
+        const salt = crypto.randomBytes(8).toString('hex');
+        ///const salt = 'asdffht4';
         this.data['salt'] = salt;
         return passwordCrypto
           .hash(this.data.password, this.data.salt)
