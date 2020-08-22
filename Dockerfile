@@ -33,4 +33,5 @@ ENV PORT=1337
 USER node
 EXPOSE $PORT
 
-ENTRYPOINT ["pm2-runtime","./bin/parse-server","-i","max"]
+#ENTRYPOINT ["pm2-runtime","./bin/parse-server","-i","max"]
+CMD pm2 start ./bin/parse-server -i max
